@@ -71,9 +71,26 @@ Run the lightweight analysis tests without loading a model:
 uv run python -m unittest discover -s tests
 ```
 
+## Controlled prefix-cache comparison
+
+To check whether the latency improvement persists at different output lengths,
+run the controlled sweep:
+
+```bash
+uv run python controlled_cache_sweep.py --token-levels 30 40 100 --repeats 5
+```
+
+The sweep compares four full-prompt sequential generations with four sequential
+branches that reuse one prompt-prefix KV cache. It alternates strategy order,
+requests equal output-token counts, saves every trial to
+`results/controlled_cache_sweep.json`, and requires exact output equality under
+the default greedy decoding. This isolates prefix reuse; it does not claim that
+the branches execute concurrently.
+
 ## Repository map
 
 - `benchmark.py` — configurable sequential inference benchmark
+- `controlled_cache_sweep.py` — repeated, equal-work prefix-cache comparison
 - `analyze_results.py` — descriptive summary of saved metrics
 - `results/baseline_m4.json` — preserved measurements and generated text
 - `notes/lessons-learned.md` — interpretation, limitations, roadblocks, and next experiments
