@@ -1,7 +1,7 @@
 [project]
 name = "my-research"
 version = "0.1.0"
-description = "Add your description here"
+description = "Reproducible MLX-LM baselines for studying the systems cost of multi-sample hallucination detection"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
